@@ -16,12 +16,12 @@ def query(q):
     with open(db, "r") as dbf:
         for line in dbf.readlines():
             o = json.loads(line)
-            if o == q:
+            if q(o):
                 objects.append(o)
     return objects
 
 
 persist({"name": "P.J. Finlay", "age": 24})
 
-print(query({"name": "P.J. Finlay", "age": 24}))
+print(query(lambda x: x["age"] == 24))
 # [{'name': 'P.J. Finlay', 'age': 24}]
